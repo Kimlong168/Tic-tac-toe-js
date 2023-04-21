@@ -16,6 +16,34 @@ let result = [
 ];
 let winner = false;
 
+
+lightMode.addEventListener("click", () => {
+  if (lightMode.checked) {
+    document.body.classList.add("bg-light");
+    document.body.classList.add("text-dark");
+    document.body.classList.remove("bg-dark");
+    document.body.classList.remove("text-light");
+    document.getElementById("game-board").classList.add("bg-light");
+    document.getElementById("game-board").classList.remove("bg-dark");
+
+  } else {
+    document.body.classList.remove("bg-light");
+    document.body.classList.add("bg-dark");
+    document.body.classList.add("text-light");
+    document.body.classList.remove("text-dark");
+    document.getElementById("game-board").classList.remove("bg-light");
+    document.getElementById("game-board").classList.add("bg-dark");
+  }
+});
+
+music.addEventListener("click", () => {
+  if (music.checked) {
+    document.getElementById("myAudio").play();
+  } else {
+    document.getElementById("myAudio").pause();
+  }
+});
+
 for (let i = 0; i < boxes.length; i++) {
   boxes[i].addEventListener("click",  function () {
 
@@ -146,29 +174,4 @@ btnBack.addEventListener("click", function () {
   win.close();
 });
 
-lightMode.addEventListener("click", () => {
-  if (lightMode.checked) {
-    document.body.classList.add("bg-light");
-    document.body.classList.add("text-dark");
-    document.body.classList.remove("bg-dark");
-    document.body.classList.remove("text-light");
-    document.getElementById("game-board").classList.add("bg-light");
-    document.getElementById("game-board").classList.remove("bg-dark");
 
-  } else {
-    document.body.classList.remove("bg-light");
-    document.body.classList.add("bg-dark");
-    document.body.classList.add("text-light");
-    document.body.classList.remove("text-dark");
-    document.getElementById("game-board").classList.remove("bg-light");
-    document.getElementById("game-board").classList.add("bg-dark");
-  }
-});
-
-music.addEventListener("click", () => {
-  if (music.checked) {
-    document.getElementById("myAudio").play();
-  } else {
-    document.getElementById("myAudio").pause();
-  }
-});

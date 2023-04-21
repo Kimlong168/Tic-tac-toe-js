@@ -5,8 +5,8 @@ const playerB = document.getElementById("player-B");
 const gameDraw = document.getElementById("game-draw");
 const btnBack = document.getElementById("btn-back");
 const btnNewGame = document.getElementById("btn-new-game");
-const lightMode = document.getElementById("flexSwitchCheckDefault");
-const music = document.getElementById("music");
+const lightMode1 = document.getElementById("flexSwitchCheckDefault1");
+const music1 = document.getElementById("music1");
 let turn = 0;
 let count = 0;
 let result = [
@@ -14,6 +14,34 @@ let result = [
   [14, 15, 16],
   [17, 18, 19],
 ];
+
+lightMode1.addEventListener("click", () => {
+  console.log("test");
+  if (lightMode1.checked) {
+    document.body.classList.add("bg-light");
+    document.body.classList.add("text-dark");
+    document.body.classList.remove("bg-dark");
+    document.body.classList.remove("text-light");
+    document.getElementById("game-board").classList.add("bg-light");
+    document.getElementById("game-board").classList.remove("bg-dark");
+
+  } else {
+    document.body.classList.remove("bg-light");
+    document.body.classList.add("bg-dark");
+    document.body.classList.add("text-light");
+    document.body.classList.remove("text-dark");
+    document.getElementById("game-board").classList.remove("bg-light");
+    document.getElementById("game-board").classList.add("bg-dark");
+  }
+});
+
+music1.addEventListener("click", () => {
+  if (music1.checked) {
+    document.getElementById("myAudio").play();
+  } else {
+    document.getElementById("myAudio").pause();
+  }
+});
 
 
 for (let i = 0; i < boxes.length; i++) {
@@ -173,31 +201,4 @@ btnBack.addEventListener("click", function () {
     "_self"
   ); /* url = "" or "about:blank"; target="_self" */
   win.close();
-});
-
-lightMode.addEventListener("click", () => {
-  if (lightMode.checked) {
-    document.body.classList.add("bg-light");
-    document.body.classList.add("text-dark");
-    document.body.classList.remove("bg-dark");
-    document.body.classList.remove("text-light");
-    document.getElementById("game-board").classList.add("bg-light");
-    document.getElementById("game-board").classList.remove("bg-dark");
-
-  } else {
-    document.body.classList.remove("bg-light");
-    document.body.classList.add("bg-dark");
-    document.body.classList.add("text-light");
-    document.body.classList.remove("text-dark");
-    document.getElementById("game-board").classList.remove("bg-light");
-    document.getElementById("game-board").classList.add("bg-dark");
-  }
-});
-
-music.addEventListener("click", () => {
-  if (music.checked) {
-    document.getElementById("myAudio").play();
-  } else {
-    document.getElementById("myAudio").pause();
-  }
 });
