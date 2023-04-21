@@ -8,9 +8,9 @@ const lightMode = document.getElementById("flexSwitchCheckDefault");
 const music = document.getElementById("music");
 let turn = 0;
 let result = [
-  [1, 2, 3],
-  [4, 5, 6],
-  [7, 8, 9],
+  [11, 12, 13],
+  [14, 15, 16],
+  [17, 18, 19],
 ];
 let winner = false;
 
@@ -85,15 +85,15 @@ for (let i = 0; i < boxes.length; i++) {
     ) {
       winner = true;
     } else if (
-      result[0][0] != 1 &&
-      result[0][1] != 2 &&
-      result[0][2] != 3 &&
-      result[1][0] != 4 &&
-      result[1][1] != 5 &&
-      result[1][2] != 6 &&
-      result[2][0] != 7 &&
-      result[2][1] != 8 &&
-      result[2][2] != 9
+      result[0][0] != 11 &&
+      result[0][1] != 12 &&
+      result[0][2] != 13 &&
+      result[1][0] != 14 &&
+      result[1][1] != 15 &&
+      result[1][2] != 16 &&
+      result[2][0] != 17 &&
+      result[2][1] != 18 &&
+      result[2][2] != 19
     ) {
       document.getElementById("win").classList.remove("d-none");
       document.getElementById("win").innerHTML = "Game Draw";
@@ -129,9 +129,9 @@ btnNewGame.addEventListener("click", function () {
 
   turn = 0;
   result = [
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9],
+    [11, 12, 13],
+    [14, 15, 16],
+    [17, 18, 19],
   ];
   winner = false;
 });
