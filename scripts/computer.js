@@ -7,6 +7,7 @@ const btnBack = document.getElementById("btn-back");
 const btnNewGame = document.getElementById("btn-new-game");
 const lightMode1 = document.getElementById("flexSwitchCheckDefault1");
 const music1 = document.getElementById("music1");
+
 let turn = 0;
 let count = 0;
 let result = [
@@ -80,13 +81,13 @@ for (let i = 0; i < boxes.length; i++) {
 
         setTimeout(()=>{
           boxes[random].innerHTML = "&#11093;";
+          playerA.classList.add("text-warning");
+          playerA.classList.add("bg-success");
+          playerB.classList.remove("text-warning");
+          playerB.classList.remove("bg-success");
         },100);
 
         turn = 0;
-        playerA.classList.add("text-warning");
-        playerA.classList.add("bg-success");
-        playerB.classList.remove("text-warning");
-        playerB.classList.remove("bg-success");
 
         if (random < 3) {
           result[0][random] = 1;
