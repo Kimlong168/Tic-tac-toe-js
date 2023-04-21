@@ -115,9 +115,13 @@ for (let i = 0; i < boxes.length; i++) {
 }
 
 btnNewGame.addEventListener("click", function () {
-  for (let i = 0; i < boxes.length; i++) {
+  var i=0;
+  setInterval(()=>{
+    if(boxes[i].innerHTML.trim() != "")
     boxes[i].innerHTML = "";
-  }
+    i++;
+  },100);
+  
 
   document.getElementById("game-board").style.pointerEvents = "auto";
   document.getElementById("win").classList.add("d-none");
@@ -128,12 +132,12 @@ btnNewGame.addEventListener("click", function () {
   playerB.classList.remove("bg-success");
 
   turn = 0;
+  winner = false;
   result = [
     [11, 12, 13],
     [14, 15, 16],
     [17, 18, 19],
   ];
-  winner = false;
 });
 
 btnBack.addEventListener("click", function () {
@@ -141,7 +145,7 @@ btnBack.addEventListener("click", function () {
     "",
     "_self"
   ); /* url = "" or "about:blank"; target="_self" */
-  window.close();
+  win.close();
 });
 
 lightMode.addEventListener("click", () => {
