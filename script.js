@@ -2,11 +2,13 @@
 const boxes = document.getElementsByClassName("box");
 const playerA = document.getElementById("player-A");
 const playerB = document.getElementById("player-B");
+const gameDraw = document.getElementById("game-draw");
 const btnBack = document.getElementById("btn-back");
 const btnNewGame = document.getElementById("btn-new-game");
 const lightMode = document.getElementById("flexSwitchCheckDefault");
 const music = document.getElementById("music");
 let turn = 0;
+let count=0;
 let result = [
   [11, 12, 13],
   [14, 15, 16],
@@ -15,8 +17,10 @@ let result = [
 let winner = false;
 
 for (let i = 0; i < boxes.length; i++) {
-  boxes[i].addEventListener("click", function () {
+  boxes[i].addEventListener("click",  function () {
+
     if (this.innerHTML.trim() == "" && turn == 0) {
+      count++;
       this.innerHTML = "&#10060;";
       turn = 1;
       playerB.classList.add("text-warning");
@@ -31,6 +35,7 @@ for (let i = 0; i < boxes.length; i++) {
         result[2][i - 6] = 0;
       }
     } else if (this.innerHTML.trim() == "" && turn == 1) {
+      count++;
       this.innerHTML = "&#11093;";
       turn = 0;
       playerA.classList.add("text-warning");
@@ -84,21 +89,11 @@ for (let i = 0; i < boxes.length; i++) {
       result[1][1] == result[2][0]
     ) {
       winner = true;
-    } else if (
-      result[0][0] != 11 &&
-      result[0][1] != 12 &&
-      result[0][2] != 13 &&
-      result[1][0] != 14 &&
-      result[1][1] != 15 &&
-      result[1][2] != 16 &&
-      result[2][0] != 17 &&
-      result[2][1] != 18 &&
-      result[2][2] != 19
-    ) {
-      document.getElementById("win").classList.remove("d-none");
-      document.getElementById("win").innerHTML = "Game Draw";
-      document.getElementById("win").classList.remove("text-danger");
-      document.getElementById("win").classList.add("text-warning");
+    }
+    
+
+    if(count==9 && winner==false){
+      gameDraw.innerHTML="Game Draw";
     }
 
     if (winner) {
@@ -122,6 +117,7 @@ btnNewGame.addEventListener("click", function () {
     i++;
   },100);
   
+  // window.location.reload();
 
   document.getElementById("game-board").style.pointerEvents = "auto";
   document.getElementById("win").classList.add("d-none");
@@ -130,8 +126,10 @@ btnNewGame.addEventListener("click", function () {
   playerA.classList.add("bg-success");
   playerB.classList.remove("text-warning");
   playerB.classList.remove("bg-success");
+  gameDraw.innerHTML="";
 
   turn = 0;
+  count=0;
   winner = false;
   result = [
     [11, 12, 13],
