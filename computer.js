@@ -67,16 +67,21 @@ for (let i = 0; i < boxes.length; i++) {
       if (findWinner(whoWin)) {
         return;
       }
+
+    }else{
+      return;
     }
 
-
-
-    for (let i = 0; i < 9; i++) {
+    while(true) {
       let random = Math.floor(Math.random() * 9);
       if (boxes[random].innerHTML.trim() == "") {
 
         count++;
-        boxes[random].innerHTML = "&#11093;";
+
+        setTimeout(()=>{
+          boxes[random].innerHTML = "&#11093;";
+        },100);
+
         turn = 0;
         playerA.classList.add("text-warning");
         playerA.classList.add("bg-success");
