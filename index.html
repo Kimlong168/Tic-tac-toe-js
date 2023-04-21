@@ -21,77 +21,20 @@
       </div>
     </header>
 
-    <!-- light mood -->
-    <div
-      class="container d-flex justify-content-evenly border-top border-bottom border-warning py-2"
-    >
-      <div>
-        <div class="form-check form-switch">
-          <label class="form-check-label fw-bold" for="flexSwitchCheckDefault"
-            >Light mode</label
-          >
-          <input
-            class="form-check-input border border-primary"
-            type="checkbox"
-            id="flexSwitchCheckDefault"
-          />
-        </div>
+    <section class="container">
+      <div class="py-2">
+        <span class="me-2">&#127817;</span
+        ><a href="twoPlayer.html" class="text-decoration-none"
+          >Play with your friend</a
+        >
       </div>
-      <div>
-        <div class="form-check form-switch">
-          <label class="form-check-label fw-bold" for="flexSwitchCheckDefault"
-            >Music</label
-          >
-          <input
-            class="form-check-input border-primary"
-            type="checkbox"
-            id="music"
-          />
-        </div>
+      <div class="py-2">
+        <span class="me-2">&#129373;</span
+        ><a href="computer.html" class="text-decoration-none"
+          >Play with computer</a
+        >
       </div>
-    </div>
-
-    <!-- game board -->
-    <div class="d-flex justify-content-center gap-5 mt-4">
-      <p id="player-A" class="fw-bold text-warning bg-success p-2">
-        Player A: &#10060;
-      </p>
-      <p id="player-B" class="fw-bold p-2">Player B: &#11093;</p>
-    </div>
-
-    <table class="table-success mx-auto bg-dark mt-4" id="game-board">
-      <tr>
-        <td class="box" id="box1"></td>
-        <td class="box" id="box2"></td>
-        <td class="box" id="box3"></td>
-      </tr>
-      <tr>
-        <td class="box" id="box4"></td>
-        <td class="box" id="box5"></td>
-        <td class="box" id="box6"></td>
-      </tr>
-      <tr>
-        <td class="box" id="box7"></td>
-        <td class="box" id="box8"></td>
-        <td class="box" id="box9"></td>
-      </tr>
-    </table>
-
-    <!-- winner -->
-    <div class="mt-4">
-      <h2 class="text-center h2 fw-bold text-danger d-none" id="win">
-        Winner : <span id="winner" class="text-success"></span>
-      </h2>
-      <h2 class="text-center fw-bold text-warning" id="game-draw"></h2>
-    </div>
-
-    <!-- new game -->
-    <div class="container d-flex justify-content-between my-5">
-      <button class="btn btn-outline-danger" id="btn-back">Back</button>
-      <button class="btn btn-outline-success" id="btn-new-game">
-        New Game
-      </button>
-    </div>
+    </section>
 
     <!-- background sound -->
     <audio class="d-none" id="myAudio" controls loop>

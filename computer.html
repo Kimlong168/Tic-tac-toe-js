@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Media Content</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body class="bg-dark text-light">
+    <!-- header -->
+    <header>
+      <div class="h1 text-center p-4 text-warning fw-bold title shadow-sm">
+        Tic Tac Toe Game
+      </div>
+    </header>
+
+    <!-- light mood -->
+    <div
+      class="container d-flex justify-content-evenly border-top border-bottom border-warning py-2"
+    >
+      <div>
+        <div class="form-check form-switch">
+          <label class="form-check-label fw-bold" for="flexSwitchCheckDefault"
+            >Light mode</label
+          >
+          <input
+            class="form-check-input border border-primary"
+            type="checkbox"
+            id="flexSwitchCheckDefault"
+          />
+        </div>
+      </div>
+      <div>
+        <div class="form-check form-switch">
+          <label class="form-check-label fw-bold" for="flexSwitchCheckDefault"
+            >Music &#127925;</label
+          >
+          <input
+            class="form-check-input border-primary"
+            type="checkbox"
+            id="music"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- game board -->
+    <div class="d-flex justify-content-center gap-5 mt-4">
+      <p id="player-A" class="fw-bold text-warning bg-success p-2">
+        You: &#10060;
+      </p>
+      <p id="player-B" class="fw-bold p-2">Computer: &#11093;</p>
+    </div>
+
+    <table class="table-success mx-auto bg-dark mt-4" id="game-board">
+      <tr>
+        <td class="box" id="box1"></td>
+        <td class="box" id="box2"></td>
+        <td class="box" id="box3"></td>
+      </tr>
+      <tr>
+        <td class="box" id="box4"></td>
+        <td class="box" id="box5"></td>
+        <td class="box" id="box6"></td>
+      </tr>
+      <tr>
+        <td class="box" id="box7"></td>
+        <td class="box" id="box8"></td>
+        <td class="box" id="box9"></td>
+      </tr>
+    </table>
+
+    <!-- winner -->
+    <div class="mt-4">
+      <h2 class="text-center h2 fw-bold text-danger d-none" id="win">
+        Winner : <span id="winner" class="text-success"></span>
+      </h2>
+      <h2 class="text-center fw-bold text-warning" id="game-draw"></h2>
+    </div>
+
+    <!-- new game -->
+    <div class="container d-flex justify-content-between my-5">
+      <a href="index.html" class="btn btn-outline-danger">Back</a>
+      <button class="btn btn-outline-success" id="btn-new-game">
+        New Game
+      </button>
+    </div>
+
+    <!-- background sound -->
+    <audio class="d-none" id="myAudio" controls loop>
+      <source
+        src="./assets/mp3/Vanthan x VannDa - កម្លោះស្រុកខ្មែរ (Khmer Gentlemen) [Official Video].mp3"
+      />
+      This broswer doesn't support HTML5 audio
+    </audio>
+
+    <!-- javascript code -->
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+    <script src="computer.js"></script>
+  </body>
+</html>
