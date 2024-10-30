@@ -1,4 +1,3 @@
-
 const boxes = document.getElementsByClassName("box");
 const playerA = document.getElementById("player-A");
 const playerB = document.getElementById("player-B");
@@ -17,7 +16,6 @@ let result = [
 ];
 
 lightMode1.addEventListener("click", () => {
-  console.log("test");
   if (lightMode1.checked) {
     document.body.classList.add("bg-light");
     document.body.classList.add("text-dark");
@@ -44,156 +42,132 @@ music1.addEventListener("click", () => {
   }
 });
 
-
 for (let i = 0; i < boxes.length; i++) {
   boxes[i].addEventListener("click", function () {
-
     if (this.innerHTML.trim() == "" && turn == 0) {
       count++;
       this.innerHTML = "&#10060;";
       turn = 1;
-      playerB.classList.add("text-warning");
-      playerB.classList.add("bg-success");
-      playerA.classList.remove("text-warning");
-      playerA.classList.remove("bg-success");
-      if (i < 3) {
-        result[0][i] = 0;
-      } else if (i < 6) {
-        result[1][i - 3] = 0;
-      } else {
-        result[2][i - 6] = 0;
-      }
-      document.getElementById("game-board").style.pointerEvents = "none";
-      // check for winner
-      if (findWinner(whoWin)) {
-        return;
-      }
+      playerB.classList.add("text-warning", "bg-success");
+      playerA.classList.remove("text-warning", "bg-success");
 
-    }else{
-      return;
-    }
+      if (i < 3) result[0][i] = 0;
+      else if (i < 6) result[1][i - 3] = 0;
+      else result[2][i - 6] = 0;
 
-    while(true) {
-      let random = Math.floor(Math.random() * 9);
-      if (boxes[random].innerHTML.trim() == "") {
+      if (findWinner(whoWin)) return;
 
-        count++;
+      setTimeout(() => {
+        const computerMove = findBestMove();
+        if (computerMove !== -1) {
+          count++;
+          boxes[computerMove].innerHTML = "&#11093;";
+          playerA.classList.add("text-warning", "bg-success");
+          playerB.classList.remove("text-warning", "bg-success");
+          turn = 0;
 
-        setTimeout(()=>{
-          boxes[random].innerHTML = "&#11093;";
-          playerA.classList.add("text-warning");
-          playerA.classList.add("bg-success");
-          playerB.classList.remove("text-warning");
-          playerB.classList.remove("bg-success");
-        },100);
+          const row = Math.floor(computerMove / 3);
+          const col = computerMove % 3;
+          result[row][col] = 1;
 
-        turn = 0;
-
-        if (random < 3) {
-          result[0][random] = 1;
-        } else if (random < 6) {
-          result[1][random - 3] = 1;
-        } else {
-          result[2][random - 6] = 1;
+          findWinner(whoWin);
         }
-        document.getElementById("game-board").style.pointerEvents = "auto";
-
-        // check for winner
-        if (findWinner(whoWin)) {
-          return;
-        }
-
-        break;
-      }
+      }, 100);
     }
-
-
   });
 }
 
-function findWinner(whoWin) {
-  if (result[0][0] == result[0][1] && result[0][1] == result[0][2]) {
-    whoWin(result[0][0]);
-  } else if (
-    result[1][0] == result[1][1] &&
-    result[1][1] == result[1][2]
-  ) {
-    whoWin(result[1][0]);
-  } else if (
-    result[2][0] == result[2][1] &&
-    result[2][1] == result[2][2]
-  ) {
-    whoWin(result[2][0]);
-  } else if (
-    result[0][0] == result[1][0] &&
-    result[1][0] == result[2][0]
-  ) {
-    whoWin(result[0][0]);
-  } else if (
-    result[0][1] == result[1][1] &&
-    result[1][1] == result[2][1]
-  ) {
-    whoWin(result[0][1]);
-  } else if (
-    result[0][2] == result[1][2] &&
-    result[1][2] == result[2][2]
-  ) {
-    whoWin(result[0][2]);
-  } else if (
-    result[0][0] == result[1][1] &&
-    result[1][1] == result[2][2]
-  ) {
-    whoWin(result[0][0]);
-  } else if (
-    result[0][2] == result[1][1] &&
-    result[1][1] == result[2][0]
-  ) {
-    whoWin(result[0][2]);
-  } else if (count == 9) {
-    gameDraw.innerHTML = "Game Draw";
-  } else {
-    return false;
+function findBestMove() {
+  for (let row = 0; row < 3; row++) {
+    for (let col = 0; col < 3; col++) {
+      if (result[row][col] !== 0 && result[row][col] !== 1) {
+        result[row][col] = 1;
+        if (isWinningMove(1)) {
+          result[row][col] = row * 3 + col + 11;
+          return row * 3 + col;
+        }
+        result[row][col] = row * 3 + col + 11;
+      }
+    }
   }
 
-  return true;
+  for (let row = 0; row < 3; row++) {
+    for (let col = 0; col < 3; col++) {
+      if (result[row][col] !== 0 && result[row][col] !== 1) {
+        result[row][col] = 0;
+        if (isWinningMove(0)) {
+          result[row][col] = row * 3 + col + 11;
+          return row * 3 + col;
+        }
+        result[row][col] = row * 3 + col + 11;
+      }
+    }
+  }
+
+  if (result[1][1] !== 0 && result[1][1] !== 1) return 4;
+
+  const corners = [0, 2, 6, 8];
+  for (let i = 0; i < corners.length; i++) {
+    let row = Math.floor(corners[i] / 3);
+    let col = corners[i] % 3;
+    if (result[row][col] !== 0 && result[row][col] !== 1) {
+      return corners[i];
+    }
+  }
+
+  for (let i = 0; i < 9; i++) {
+    let row = Math.floor(i / 3);
+    let col = i % 3;
+    if (result[row][col] !== 0 && result[row][col] !== 1) {
+      return i;
+    }
+  }
+
+  return -1;
+}
+
+function isWinningMove(player) {
+  return (
+    (result[0][0] === player && result[0][1] === player && result[0][2] === player) ||
+    (result[1][0] === player && result[1][1] === player && result[1][2] === player) ||
+    (result[2][0] === player && result[2][1] === player && result[2][2] === player) ||
+    (result[0][0] === player && result[1][0] === player && result[2][0] === player) ||
+    (result[0][1] === player && result[1][1] === player && result[2][1] === player) ||
+    (result[0][2] === player && result[1][2] === player && result[2][2] === player) ||
+    (result[0][0] === player && result[1][1] === player && result[2][2] === player) ||
+    (result[0][2] === player && result[1][1] === player && result[2][0] === player)
+  );
+}
+
+function findWinner(whoWin) {
+  if (
+    isWinningMove(0) ||
+    isWinningMove(1) ||
+    (count === 9 && !isWinningMove(0) && !isWinningMove(1))
+  ) {
+    gameDraw.innerHTML = count === 9 ? "Game Draw" : "";
+    return true;
+  }
+  return false;
 }
 
 function whoWin(winner) {
-  if (winner == 0) {
-    document.getElementById("winner").innerHTML = "You";
-    document.getElementById("win").classList.remove("d-none");
-  } else {
-    document.getElementById("winner").innerHTML = "Computer";
-    document.getElementById("win").classList.remove("d-none");
-  }
+  document.getElementById("winner").innerHTML = winner === 0 ? "You" : "Computer";
+  document.getElementById("win").classList.remove("d-none");
   document.getElementById("game-board").style.pointerEvents = "none";
 }
 
-
-
-
 btnNewGame.addEventListener("click", function () {
-  var i = 0;
-  setInterval(() => {
-    if (boxes[i].innerHTML.trim() != "")
-      boxes[i].innerHTML = "";
-    i++;
-  }, 100);
-
-  // window.location.reload();
-
+  for (let i = 0; i < boxes.length; i++) {
+    boxes[i].innerHTML = "";
+  }
   document.getElementById("game-board").style.pointerEvents = "auto";
   document.getElementById("win").classList.add("d-none");
-
-  playerA.classList.add("text-warning");
-  playerA.classList.add("bg-success");
-  playerB.classList.remove("text-warning");
-  playerB.classList.remove("bg-success");
+  playerA.classList.add("text-warning", "bg-success");
+  playerB.classList.remove("text-warning", "bg-success");
   gameDraw.innerHTML = "";
-
   turn = 0;
   count = 0;
-  winner = false;
   result = [
     [11, 12, 13],
     [14, 15, 16],
@@ -202,9 +176,5 @@ btnNewGame.addEventListener("click", function () {
 });
 
 btnBack.addEventListener("click", function () {
-  var win = window.open(
-    "",
-    "_self"
-  ); /* url = "" or "about:blank"; target="_self" */
-  win.close();
+  window.close();
 });
