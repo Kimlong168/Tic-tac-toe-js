@@ -23,7 +23,6 @@ lightMode1.addEventListener("click", () => {
     document.body.classList.remove("text-light");
     document.getElementById("game-board").classList.add("bg-light");
     document.getElementById("game-board").classList.remove("bg-dark");
-
   } else {
     document.body.classList.remove("bg-light");
     document.body.classList.add("bg-dark");
@@ -128,33 +127,53 @@ function findBestMove() {
 
 function isWinningMove(player) {
   return (
-    (result[0][0] === player && result[0][1] === player && result[0][2] === player) ||
-    (result[1][0] === player && result[1][1] === player && result[1][2] === player) ||
-    (result[2][0] === player && result[2][1] === player && result[2][2] === player) ||
-    (result[0][0] === player && result[1][0] === player && result[2][0] === player) ||
-    (result[0][1] === player && result[1][1] === player && result[2][1] === player) ||
-    (result[0][2] === player && result[1][2] === player && result[2][2] === player) ||
-    (result[0][0] === player && result[1][1] === player && result[2][2] === player) ||
-    (result[0][2] === player && result[1][1] === player && result[2][0] === player)
+    (result[0][0] === player &&
+      result[0][1] === player &&
+      result[0][2] === player) ||
+    (result[1][0] === player &&
+      result[1][1] === player &&
+      result[1][2] === player) ||
+    (result[2][0] === player &&
+      result[2][1] === player &&
+      result[2][2] === player) ||
+    (result[0][0] === player &&
+      result[1][0] === player &&
+      result[2][0] === player) ||
+    (result[0][1] === player &&
+      result[1][1] === player &&
+      result[2][1] === player) ||
+    (result[0][2] === player &&
+      result[1][2] === player &&
+      result[2][2] === player) ||
+    (result[0][0] === player &&
+      result[1][1] === player &&
+      result[2][2] === player) ||
+    (result[0][2] === player &&
+      result[1][1] === player &&
+      result[2][0] === player)
   );
 }
 
-function findWinner(whoWin) {
-  if (
-    isWinningMove(0) ||
-    isWinningMove(1) ||
-    (count === 9 && !isWinningMove(0) && !isWinningMove(1))
-  ) {
-    gameDraw.innerHTML = count === 9 ? "Game Draw" : "";
+function findWinner() {
+  if (isWinningMove(0)) {
+    whoWin(0); // Call whoWin with Player A as the winner
+    return true;
+  } else if (isWinningMove(1)) {
+    whoWin(1); // Call whoWin with the computer as the winner
+    return true;
+  } else if (count === 9) {
+    // Draw condition
+    gameDraw.innerHTML = "Game Draw";
     return true;
   }
   return false;
 }
 
 function whoWin(winner) {
-  document.getElementById("winner").innerHTML = winner === 0 ? "You" : "Computer";
+  document.getElementById("winner").innerHTML =
+    winner === 0 ? "You Win!" : "Computer Wins!";
   document.getElementById("win").classList.remove("d-none");
-  document.getElementById("game-board").style.pointerEvents = "none";
+  document.getElementById("game-board").style.pointerEvents = "none"; // Disable further moves
 }
 
 btnNewGame.addEventListener("click", function () {
